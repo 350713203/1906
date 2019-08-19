@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://code.alibabatech.com/schema/dubbo 
+	http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	<!-- 微服务提供者配置文件，作用是把提供者的端口实现类信息发给服务注册中心zookeeper -->
+	<!-- 1,设置应用(微服务)名称 -->
+	<dubbo:application name="provider-of-jtorder"/>
+	<!-- 2,设置服务注册中心zookeeper地址 -->
+	<dubbo:registry timeout="900000" address="zookeeper://192.168.145.210:2181"></dubbo:registry>
+	<!-- 3,设置dubbo端口号 -->
+	<dubbo:protocol name="dubbo" port="20885"></dubbo:protocol>
+	<!-- 4,注册服务实现类对象-->
+	<bean id="orderServiceIpml"  class="com.jt.order.service.OrderServiceImpl"></bean>
+	<!-- 5,设置客户端能访问接口，像servlet注册-->
+	<dubbo:service interface="com.jt.order.service.OrderService" ref="orderServiceIpml"></dubbo:service>
+</beans>
